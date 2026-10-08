@@ -3,8 +3,8 @@ import sys
 from dotenv import load_dotenv
 from google import genai
 
-MODELO = "gemini-3.8-flash"
-INSTRUCCIONES = "Responde siempre en español, en máximo tres frases."
+MODELO = "gemini-3.5-flash-lite"
+INSTRUCCIONES = "Responde siempre en español, responde como cavernicola."
 
 load_dotenv()
 client = genai.Client()
