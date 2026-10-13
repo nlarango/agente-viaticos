@@ -1,10 +1,17 @@
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
 from google import genai
 
 MODELO = "gemini-3.5-flash-lite"
-INSTRUCCIONES = "Responde siempre en español, responde como cavernicola."
+BASE = Path(__file__).parent
+INSTRUCCIONES = (BASE / "prompts" / "sistema.md").read_text(encoding="utf-8")
+
+for archivo in sorted((BASE / "conocimientos").iterdir()):
+    if archivo.is_file() and not archivo.name.startswith("."):
+        contenido = archivo.read_text(encoding="utf-8")
+        INSTRUCCIONES += f'\n<documento nombre="{archivo.name}">\n{contenido}\n</documento>\n'
 
 load_dotenv()
 client = genai.Client()
